@@ -1,0 +1,42 @@
+<script setup lang="ts">
+import { HeartIcon, HeartFilledIcon, RemoveIcon } from "./icons";
+// import CardComponentType from "../types/CardComponentType";
+import { Button } from "./shared";
+
+type CardComponentType = {
+  type: "movies" | "favorites";
+  image: string;
+  description: string;
+  title: string;
+  duration: string;
+  isSaved: boolean;
+};
+
+defineProps<CardComponentType>();
+</script>
+
+<template>
+  <div class="flex shrink-0 flex-col overflow-hidden rounded bg-raisin-black">
+    <div class="relative h-40 w-72 shrink-0 overflow-hidden rounded md:h-44 md:w-80 xl:h-56 xl:w-96">
+      <img :src="image" :alt="description" fill class="w-full" />
+    </div>
+    <div class="flex flex-col gap-3 p-3">
+      <div class="flex items-center justify-between">
+        <p class="grow text-xs font-medium text-gray-50">{{ title }}</p>
+        <Button class="">
+          <!-- {type === "favorites" ? (
+          <RemoveIcon />
+          ) : isSaved ? (
+          <HeartFilledIcon />
+          ) : (
+          <HeartIcon />
+          )} -->
+          <RemoveIcon v-if="type === 'favorites'" />
+          <HeartFilledIcon v-else-if="isSaved" />
+          <HeartIcon v-else />
+        </Button>
+      </div>
+      <p class="text-xs text-suva-grey">{{duration}}</p>
+    </div>
+  </div>
+</template>
