@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { Promo, About } from '../components';
+import { Promo, About, Technologies, Student } from '../components';
 </script>
 
 <template>
   <Promo />
   <About />
+  <Technologies />
+  <Student />
 </template>
