@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import clsx from "clsx";
-import { Component } from "vue";
 
 type Props = {
-  children: string | Component;
+  // children: string | Component;
   className?: string;
   type?: "button" | "submit" | "reset";
   title?: string;
@@ -25,6 +24,7 @@ withDefaults(defineProps<Props>(), {
     :disabled="disabled"
     :onClick="onClick"
   >
-    {children}
+    <!-- {{children}} -->
+    <slot></slot>
   </button>
 </template>
