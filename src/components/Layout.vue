@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Promo, About, Technologies, Student, Footer } from "../components";
+import { Header } from "../components";
 </script>
 
 <template>

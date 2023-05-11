@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
 import { RouterView } from "vue-router";
+import { Layout } from "./components";
 </script>
 
 <template>
@@ -13,7 +14,10 @@ import { RouterView } from "vue-router";
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" /> -->
-  <RouterView />
+
+  <Layout>
+    <RouterView />
+  </Layout>
 </template>
 
 <style scoped>
