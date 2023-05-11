@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Promo } from '../components';
+import { Promo, About } from '../components';
 </script>
 
 <template>
   <Promo />
+  <About />
 </template>
