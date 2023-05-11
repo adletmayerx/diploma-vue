@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
+  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
