@@ -38,6 +38,7 @@ onBeforeMount(async () => {
 
     allMovies.value = res.map((movie: any) => {
       return {
+        id: movie.id,
         image: `https://api.nomoreparties.co/${movie.image.url}`,
         description: movie.alternativeText || "постер к фильму",
         title: movie.nameRU || movie.nameEN,

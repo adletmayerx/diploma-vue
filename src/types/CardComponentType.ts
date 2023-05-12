@@ -1,4 +1,5 @@
 type CardComponentType = {
+  id: string;
   type: "movies" | "favorites";
   image: string;
   description: string;

@@ -28,8 +28,9 @@ defineProps<Props>();
 
       <component
         :is="CardComponent"
-        v-for="(movie, i) in movies"
-        :key="i"
+        v-for="movie in movies"
+        :key="movie.id"
+        :id="movie.id"
         :type="cardType"
         :isSaved="movie.isSaved"
         :image="movie.image"
