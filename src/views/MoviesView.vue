@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, watch } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import { Search, Movies, MoviesCard } from "../components";
 import { Button } from "../components/shared";
 import api from "../api";
@@ -9,35 +9,23 @@ import { useFavoritesStore } from "../stores/favorites";
 
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
-console.log(favorites);
-
-watch(favorites, (val) => console.log(val));
 
 const allMovies = ref<Array<Omit<CardComponentType, "type">>>([]);
 const searchQuery = ref<string>("");
 const isShortSwitchValue = ref<boolean>(false);
 
-const filteredBySearchQueryMovies = ref<Array<Omit<CardComponentType, "type">>>([]);
-const filteredByIsShortMovies = ref<Array<Omit<CardComponentType, "type">>>([]);
-
-watch([allMovies, searchQuery], ([allMovies, searchQuery]) => {
-  if (!allMovies.length) {
-    filteredBySearchQueryMovies.value = [];
-  }
-
-  filteredBySearchQueryMovies.value = allMovies.filter((movie: any) => {
-    return movie.title?.toLowerCase().includes(searchQuery.toLowerCase());
+const filteredBySearchQueryMovies = computed(() => {
+  return allMovies.value.filter((movie: any) => {
+    return movie.title?.toLowerCase().includes(searchQuery.value.toLowerCase());
   });
 });
 
-watch([filteredBySearchQueryMovies, isShortSwitchValue], ([filteredBySearchQueryMovies, isShortSwitchValue]) => {
-  if (isShortSwitchValue) {
-    filteredByIsShortMovies.value = filteredBySearchQueryMovies.filter((movie: any) => movie.duration <= 40);
-
-    return;
+const filteredByIsShortMovies = computed(() => {
+  if (isShortSwitchValue.value) {
+    return filteredBySearchQueryMovies.value.filter((movie: any) => movie.duration <= 40);
   }
 
-  filteredByIsShortMovies.value = filteredBySearchQueryMovies;
+  return filteredBySearchQueryMovies.value;
 });
 
 onBeforeMount(async () => {
@@ -82,14 +70,12 @@ const changeIsShortSwitchValue = () => {
         @changeSearchQuery="changeSearchQueryValue"
         @changeIsShortsSwitch="changeIsShortSwitchValue"
       />
-      <div>
-        <Movies :movies="filteredByIsShortMovies" :CardComponent="MoviesCard" cardType="movies" />
-        <Button
-          class="mx-auto mt-12 mb-20 flex h-9 w-60 items-center justify-center rounded-md bg-dark-charcoal text-xs font-medium text-gray-50 md:w-80"
-        >
-          Ещё
-        </Button>
-      </div>
+      <Movies :movies="filteredByIsShortMovies" :CardComponent="MoviesCard" cardType="movies" />
+      <Button
+        class="mx-auto mt-12 mb-20 flex h-9 w-60 items-center justify-center rounded-md bg-dark-charcoal text-xs font-medium text-gray-50 md:w-80"
+      >
+        Ещё
+      </Button>
       <Footer />
     </div>
   </div>

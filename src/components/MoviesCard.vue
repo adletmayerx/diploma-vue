@@ -17,12 +17,8 @@ defineProps<CardComponentType>();
 
 <template>
   <div class="flex w-fit flex-col overflow-hidden rounded bg-raisin-black">
-    <div class="relative h-40 w-72 shrink-0 overflow-hidden rounded md:h-44 md:w-80 xl:h-50 xl:w-90">
-      <img
-        :src="image"
-        :alt="description"
-        class="h-40 w-72 shrink-0 overflow-hidden rounded md:h-44 md:w-80 xl:h-50 xl:w-90 object-cover"
-      />
+    <div class="relative h-40 w-72 shrink-0 overflow-hidden rounded md:h-44 md:w-80">
+      <img :src="image" :alt="description" class="w-full object-cover h-full" />
     </div>
     <div class="flex flex-col gap-3 p-3">
       <div class="flex items-center justify-between">
