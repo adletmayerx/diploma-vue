@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -17,8 +17,8 @@ const config = {
         "dark-charcoal": "#2F2F2F",
         "raisin-black": "#222222",
         google: "#dc4e41",
-        github: '#161514',
-        discord: '#7289da'
+        github: "#161514",
+        discord: "#7289da",
       },
       width: {
         "210px": "210px",
