@@ -9,9 +9,9 @@ import { useFavoritesStore } from "../stores/favorites";
 
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
-console.log(favorites)
+console.log(favorites);
 
-watch(favorites, val => console.log(val))
+watch(favorites, (val) => console.log(val));
 
 const allMovies = ref<Array<Omit<CardComponentType, "type">>>([]);
 const searchQuery = ref<string>("");
@@ -41,21 +41,27 @@ watch([filteredBySearchQueryMovies, isShortSwitchValue], ([filteredBySearchQuery
 });
 
 onBeforeMount(async () => {
-  try {
-    const res = await api.getMovies();
+  if (localStorage.getItem("movies")) {
+    allMovies.value = JSON.parse(localStorage.getItem("movies")!);
+  } else {
+    try {
+      const res = await api.getMovies();
 
-    allMovies.value = res.map((movie: any) => {
-      return {
-        id: movie.id,
-        image: `https://api.nomoreparties.co/${movie.image.url}`,
-        description: movie.alternativeText || "постер к фильму",
-        title: movie.nameRU || movie.nameEN,
-        duration: movie.duration,
-        isSaved: false,
-      };
-    });
-  } catch (e) {
-    console.error(e);
+      allMovies.value = res.map((movie: any) => {
+        return {
+          id: movie.id,
+          image: `https://api.nomoreparties.co/${movie.image.url}`,
+          description: movie.alternativeText || "постер к фильму",
+          title: movie.nameRU || movie.nameEN,
+          duration: movie.duration,
+          isSaved: favorites.value.find((fav) => fav.id === movie.id),
+        };
+      });
+
+      localStorage.setItem("movies", JSON.stringify(allMovies.value));
+    } catch (e) {
+      console.error(e);
+    }
   }
 });
 
