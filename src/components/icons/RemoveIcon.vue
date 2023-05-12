@@ -3,7 +3,7 @@ const props = defineProps();
 </script>
 
 <template>
-  <svg width={8} height={8} fill="none" v-bind="props">
+  <svg :style="{ width: 8 + 'px', height: 8 + 'px' }" fill="none" v-bind="props">
     <path
       fillRule="evenodd"
       clipRule="evenodd"

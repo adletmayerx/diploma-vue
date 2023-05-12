@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import CardComponentType from "../types/CardComponentType";
+import { useFavoritesStore } from "../stores/favorites";
 // import { Component } from "vue";
+
+const store = useFavoritesStore();
 
 type Props = {
   movies: Array<Omit<CardComponentType, "type">>;
@@ -9,6 +12,16 @@ type Props = {
 };
 
 defineProps<Props>();
+
+const handleCardClick = (movie: Omit<CardComponentType, "type">) => {
+  if (movie.isSaved === true) {
+    store.remove(movie.id);
+  } else {
+    store.add(movie);
+  }
+
+  movie.isSaved =!movie.isSaved;
+};
 </script>
 
 <template>
@@ -37,6 +50,7 @@ defineProps<Props>();
         :description="movie.description"
         :title="movie.title"
         :duration="movie.duration"
+        @click="handleCardClick(movie)"
       ></component>
     </div>
   </div>

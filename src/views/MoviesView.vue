@@ -4,6 +4,14 @@ import { Search, Movies, MoviesCard } from "../components";
 import { Button } from "../components/shared";
 import api from "../api";
 import CardComponentType from "../types/CardComponentType";
+import { storeToRefs } from "pinia";
+import { useFavoritesStore } from "../stores/favorites";
+
+const store = useFavoritesStore();
+const { favorites } = storeToRefs(store);
+console.log(favorites)
+
+watch(favorites, val => console.log(val))
 
 const allMovies = ref<Array<Omit<CardComponentType, "type">>>([]);
 const searchQuery = ref<string>("");
